@@ -2,7 +2,7 @@ import config from "../ConfigEnv/Config";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 export class dbService {
-  client = new client();
+  client = new Client();
   databases;
   Storage;
 
@@ -72,7 +72,7 @@ export class dbService {
     }
   }
 
-  async allBlogs(qur=['status','active']){
+  async allBlogs(que=Query.select(['status','active'])){
     try{
 
         let allBlogs=this.databases.listDocuments(config.databaseID,config.collectionID,que)
