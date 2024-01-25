@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  status: "qwerty",
+  status: false,
   userinfo: null,
 };
 

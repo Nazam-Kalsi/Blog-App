@@ -1,7 +1,7 @@
 import config from "../ConfigEnv/Config";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
 
-export class dbService {
+export class dbServices {
   client = new Client();
   databases;
   Storage;
@@ -115,5 +115,5 @@ export class dbService {
 
 }
 
-const dbservice = new dbService();
+const dbservice = new dbServices();
 export default dbservice;
