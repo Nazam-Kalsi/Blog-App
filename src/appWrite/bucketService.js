@@ -13,7 +13,7 @@ export class dbServices {
   }
   async createPost({ title, slug, content, featuredImage, status, userID }) {
     try {
-      const items = await this.databases.createDocument(
+      const post = await this.databases.createDocument(
         config.databaseID,
         config.collectionID,
         slug,
@@ -25,7 +25,7 @@ export class dbServices {
           featuredImage,
         }
       );
-      return items;
+      return post;
     } catch (error) {
         throw new Error("could not create the blog");
     }
@@ -84,6 +84,8 @@ export class dbServices {
   }
 
 
+//storage
+
   async uploadImg(file){
     try {
         return await this.Storage.createFile(config.bucketID,ID.unique(),file)
@@ -99,11 +101,11 @@ export class dbServices {
         await this.Storage.deleteFile(config.bucketID,fileID)
         return true
     } catch (error) {
-        throw new Error("could not delete file.Try again!")
-        return false            
+      return false            
+        // throw new Error("could not delete file.Try again!")
+      }
+      
     }
-
-  }
 
    preview(fileID){
     try {

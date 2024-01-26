@@ -8,11 +8,11 @@ function Card({
   return (
 
     <Link to={`/post/${$id}`}>
-      <div className='rounded-xl p-4 bg-gray-300'>
+      <div className='p-4 bg-gray-500 rounded-xl'>
         <div className=''>
           <img src={dbService.preview(featuredImage)} alt={title} className='rounded-xl '/>  //we store id of image in db
         </div>
-        <h2 className=' font-semibold text-lg'>{title}</h2>
+        <h2 className='text-lg font-semibold '>{title}</h2>
       </div>
       </Link>
   )
