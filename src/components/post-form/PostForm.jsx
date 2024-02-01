@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 
-import dbservice from "../../appWrite/bucketService"; //as we send adata to appwrite
+import dbservice from "../../appWrite/bucketService"; //as we send data to appwrite
 import { useNavigate } from "react-router-dom"; //
 import { useSelector } from "react-redux"; //to validate from store
 
@@ -22,6 +22,7 @@ function PostForm({ post }) {
 
   const submit = async (data) => {
     //came to update
+    
     if (post) {
       let newImg = data.image[0] ? dbservice.uploadImg(data.image[0]) : null;
       if (newImg) {
@@ -66,17 +67,76 @@ function PostForm({ post }) {
   }, []);
 
   useEffect(() => {
-    const subscription = watch((value,{name}) => {
-      if(name==='titile'){
-        setValue('slug',slugTransform(value.title))
+    const subscription = watch((value, { name }) => {
+      if (name === "title") {
+        setValue("slug", slugTransform(value.title));
       }
     });
     return () => {
-      subscription.unsubscribe();//memory management
+      subscription.unsubscribe(); //memory management
     };
   }, [watch, slugTransform, setValue]);
 
-  return <div></div>;
+  return (
+    <form onSubmit={handleSubmit(submit)}>
+      <Input
+        lable="Title : "
+        placeholder="Enter Title..."
+        {...register("title", {
+          required: {
+            value: true,
+            message: "Please enter a title",
+          },
+        })}
+      />
+      <Input
+        lable="Slug"
+        {...register("slug", {
+          required: {
+            value: true,
+            message: "Please enter a title",
+          },
+        })}
+        onInput={(e) => {
+          setValue("slug", slugTransform(e.currentTarget.value));
+        }}
+      />
+      <RTE
+        label="Write Context here..."
+        control={control}
+        name="context"
+        defaultValue={getValues("content")}
+      />
+      <Input
+        type="file"
+        label="Featured Image"
+        {...register("image", {
+          required: {
+            value: true,
+            message: "insert a image",
+          },
+        })}
+      />
+      {post && (
+        <img src={dbservice.preview(post.featuredImage)} alt={post.title} />
+      )}
+      <Select
+        label="status"
+        options={["active", "inactive"]}
+        {...register("status", {
+          required: {
+            value: true,
+            message: "select a status",
+          },
+        })}
+      />
+     <Button
+     type="submit"
+     >
+      {post ?"Update":"Submit"}
+     </Button>
+    </form>
+  );
 }
 
 export default PostForm;
