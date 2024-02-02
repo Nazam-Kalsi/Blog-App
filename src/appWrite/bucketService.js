@@ -5,7 +5,7 @@ export class dbServices {
   client = new Client();
   databases;
   Storage;
-
+// We use Slug as Document ID
   constructor() {
     this.client.setEndpoint(config.appWriteID).setProject(config.projectID);
     this.databases = new Databases(this.client);
@@ -75,7 +75,7 @@ export class dbServices {
   async allBlogs(que=Query.select(['status','active'])){
     try{
 
-        let allBlogs=this.databases.listDocuments(config.databaseID,config.collectionID,que)
+        let allBlogs=await this.databases.listDocuments(config.databaseID,config.collectionID,[que])
         return allBlogs;
     }
     catch{

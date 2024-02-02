@@ -1,9 +1,9 @@
 import React from 'react'
-import {Login} from "..component"
+import {Login as Comp} from "../components/index"
 function Login() {
   return (
     <div>
-        <Login/>
+        <Comp/>
     </div>
   )
 }

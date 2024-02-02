@@ -3,13 +3,14 @@ import dbservice from "../appWrite/bucketService";
 import { Card, Container } from "../components";
 
 function Home() {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   useEffect(() => {
     dbservice.allBlogs().then((data) => {
+      if(data)
       setPosts(data.documents);
     });
   });
-  if (posts.length > 0) {
+  if (posts.length>0) {
     return (
       <Container>
         {posts.map((post) => {

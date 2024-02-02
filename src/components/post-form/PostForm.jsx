@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"; //
 import { useSelector } from "react-redux"; //to validate from store
 
 import { useForm } from "react-hook-form"; //form
-import { Button, Input, RTE } from "../index"; //basic components
+import { Button, Input, RTE,Select } from "../index"; //basic components
 
 function PostForm({ post }) {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function PostForm({ post }) {
 
   const submit = async (data) => {
     //came to update
-    
+
     if (post) {
       let newImg = data.image[0] ? dbservice.uploadImg(data.image[0]) : null;
       if (newImg) {
@@ -102,7 +102,7 @@ function PostForm({ post }) {
         }}
       />
       <RTE
-        label="Write Context here..."
+        label="Write your Context here..."
         control={control}
         name="context"
         defaultValue={getValues("content")}
@@ -130,11 +130,7 @@ function PostForm({ post }) {
           },
         })}
       />
-     <Button
-     type="submit"
-     >
-      {post ?"Update":"Submit"}
-     </Button>
+      <Button type="submit">{post ? "Update" : "Submit"}</Button>
     </form>
   );
 }

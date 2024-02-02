@@ -3,7 +3,7 @@ import dbservice from '../appWrite/bucketService'
 import { useNavigate , useParams } from "react-router";
 import { PostForm } from '../components';
 function EditPost() {
-    const [ post, setPost ] = useState(null)//we use null od empty array ' [] '
+    const [ post, setPost ] = useState(null)//we use null or empty array ' [] '
     const { slug }=useParams()
     const navigate=useNavigate()
 

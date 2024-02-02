@@ -8,6 +8,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import PostForm from "./post-form/PostForm";
 import Card from "./Card";
+import Select from './Select'
 export {
   Header,
   Footer,
@@ -19,5 +20,6 @@ export {
   Login,
   Signup,
   PostForm,
-  Card
+  Card,
+  Select
 };

@@ -6,9 +6,14 @@ import Container from "../container/Container";
 
 export function Header() {
   const userStatus = useSelector((state) => {
+    console.log(state.authreducer.status);
     return state.authreducer.status;
   });
-  // const navigator=useNavigate(); //react-router-dom external feature -------- it takes url to which it has to navigate
+  const userInfo = useSelector((state) => {
+    console.log(state.authreducer.userinfo);
+    return state.authreducer.userinfo;
+  });
+  const navigate = useNavigate(); //react-router-dom external feature -------- it takes url to which it has to navigate
 
   let NavBtn = [
     {
@@ -28,35 +33,37 @@ export function Header() {
     },
     {
       name: "All Posts",
-      slug: "/all-posts",
+      slug: "/allPosts",
       active: userStatus,
     },
     {
       name: "Add Post",
-      slug: "/add-post",
+      slug: "/addpost",
       active: userStatus,
     },
-
   ];
   return (
     <>
       <header>
-
         <Container>
           <nav className="flex">
-            <div>{/* <Link to={'/'}>LOGO</Link> */}logo</div>
-            <ul className="space-x-4 flex">
-              {NavBtn.map((item) => (
-                <li key={item.name}>
-                  <button onClick={()=>console.log("hlo")
-                    // navigator(item.slug)
-                    }>{item.name}</button>
-                </li>
-              ))}
-              {
-                userStatus && (<LogoutBtn/>)
-              }
+            <div>
+              {" "}
+              <Link to={"/"}>LOGO</Link>
+            </div>
+            <ul className="flex space-x-4">
+              {NavBtn.map((item) => {
+                if (item.active) {
+                  return <li key={item.name}>
+                    <button onClick={() => navigate(item.slug)}>
+                      {item.name}
+                    </button>
+                  </li>;
+                }
+              })}
+              {userStatus && <LogoutBtn />}
             </ul>
+            <p>{userInfo?.name}</p>
           </nav>
         </Container>
       </header>

@@ -5,14 +5,14 @@ import { logOut } from "../../store/authSlice";
 function LogoutBtn() {
   const dispatch = useDispatch();
   let logoutHandler = () => {
-    authservice.logOut().then((data) => {
-      if (data.error) {
-        alert("Log out failed");//custom modal can be inserted
-      } else {
-        //dispatch the action to update state in Redux store
+    authservice
+      .logOut()
+      .then(() => {
         dispatch(logOut());
-      }
-    });
+      })
+      .catch((error) => {
+      console.log(error);
+      });
   };
   return <button onClick={logoutHandler}>Logout</button>;
 }
