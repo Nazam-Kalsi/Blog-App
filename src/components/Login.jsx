@@ -10,7 +10,8 @@ import authservice from "../appWrite/auth";
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit ,formState} = useForm();
+  const {errors}=formState;
   let [error, setError] = useState("");
 
   const loginFxn = async (data) => {
@@ -31,7 +32,7 @@ function Login() {
   return (
     <div className="">
       <div>logo</div>
-      <h2>Sign-In</h2>
+      <h2>Log-In</h2>
 
       <form onSubmit={handleSubmit(loginFxn)} className="">
         <div className="space-y-5">
@@ -40,14 +41,21 @@ function Login() {
             placeholder="Enter your E-mail"
             type="email"
             {...register("email", {
-              required: true,
-              validate: {
-                matchPattern: (value) =>
-                  /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/gim.test(value) ||
-                  "Not a valid Email",
+              required: {
+                value:true,
+                message:"it is required field"
               },
-            })}
+              validate: {
+                matchPattern: (value) =>{
+                  return(                    
+                    /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/gim.test(value)||
+                    "Not a valid Email"
+                    )
+                  }
+                },
+              })}
           />
+          <p className="">{errors.email?.message}</p>
           <Input
             type="password"
             label="Password"

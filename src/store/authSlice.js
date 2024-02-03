@@ -16,7 +16,7 @@ const authSlice = createSlice({
     logOut: (state) => {
       //if we don't need action in parameters eleminate it.
       state.status = false;
-      state.userinfo = null;
+      state.userinfo = {};
     },
   },
 });

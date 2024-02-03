@@ -16,9 +16,10 @@ export default function Post() {
 
     useEffect(() => {
         if (slug) {
-            dbservice.getPost(slug).then((post) => {
+            dbservice.getBlog(slug).then((post) => {
                 if (post) setPost(post);
                 else navigate("/");
+                console.log(post);
             });
         } else navigate("/");
     }, [slug, navigate]);
@@ -37,7 +38,7 @@ export default function Post() {
             <Container>
                 <div className="relative flex justify-center w-full p-2 mb-4 border rounded-xl">
                     <img
-                        src={dbservice.getFilePreview(post.featuredImage)}
+                        src={dbservice.preview(post.featuredImage)}
                         alt={post.title}
                         className="rounded-xl"
                     />
@@ -56,10 +57,10 @@ export default function Post() {
                     )}
                 </div>
                 <div className="w-full mb-6">
-                    <h1 className="text-2xl font-bold">{post.title}</h1>
+                    <h1 className="text-2xl font-bold">{post.Title}</h1>
                 </div>
                 <div className="browser-css">
-                    {parse(post.content)}
+                    {parse(post.Content)}
                     </div>
             </Container>
         </div>

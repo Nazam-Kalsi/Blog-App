@@ -43,17 +43,26 @@ export class authService {
         const currentUser=await this.account.get();
         return currentUser; 
     } catch (error) {
-        console.log('error', error) ;
+      throw new Error(error);
     }
   }
   async logOut(){
     try {
-        await this.account.deleteSessions();
+       return await this.account.deleteSession('current');
     } catch (error) {
         throw error;
     }
   }
-}
-
+  async guest(){    
+    try {
+      let  isGuest = await this.account.createAnonymousSession();
+      console.log("is Guest : ",isGuest);
+      return isGuest;
+      
+    } catch (error) {
+      throw new Error(error);
+      
+    }}
+  }
 const authservice = new authService();
 export default authservice;

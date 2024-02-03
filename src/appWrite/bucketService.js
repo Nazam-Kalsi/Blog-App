@@ -11,15 +11,15 @@ export class dbServices {
     this.databases = new Databases(this.client);
     this.Storage = new Storage(this.client);
   }
-  async createPost({ title, slug, content, featuredImage, status, userID }) {
+  async createPost({ Title, slug, Content, featuredImage, status, userID }) {
     try {
       const post = await this.databases.createDocument(
         config.databaseID,
         config.collectionID,
         slug,
         {
-          title,
-          content,
+          Title,
+          Content,
           status,
           userID,
           featuredImage,
@@ -72,10 +72,11 @@ export class dbServices {
     }
   }
 
-  async allBlogs(que=Query.select(['status','active'])){
-    try{
-
-        let allBlogs=await this.databases.listDocuments(config.databaseID,config.collectionID,[que])
+  // async allBlogs(que=Query.select(['status','active'])){
+  async allBlogs(){
+  try{
+        let allBlogs=await this.databases.listDocuments(config.databaseID,config.collectionID)
+        // console.log(allBlogs);
         return allBlogs;
     }
     catch{

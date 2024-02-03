@@ -7,8 +7,9 @@ function Select({ label, options, className = "", ...props },ref) {
       {label && <label htmlFor={id} className=''>{label}</label>}
       <select id={id} className={`block w-full mt-1 ${className}`} ref={ref}>
         {
-           options?.map((option)=>{
-                <option key={option} value={option} >{option}</option>
+           options.map((option)=>{
+            return(
+                <option key={option} value={option}>{option}</option>)
             })
         }
       </select>

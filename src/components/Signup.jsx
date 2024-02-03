@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import dbservices from "../appWrite/bucketService";
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import authservice from "../appWrite/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Input } from "./index";
@@ -12,8 +12,8 @@ function Signup() {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState("");
   const dispatch = useDispatch();
-  const {register, handleSubmit,formState} = useForm();
-  let {errors}=formState;
+  const { register, handleSubmit, formState } = useForm();
+  let { errors } = formState;
 
   let registerUser = async (data) => {
     setServerError("");
@@ -36,7 +36,6 @@ function Signup() {
     <div className="">
       <div>logo</div>
       <h2>Sign-Up</h2>
-    
 
       <form onSubmit={handleSubmit(registerUser)}>
         <div className="space-y-5">
@@ -55,11 +54,11 @@ function Signup() {
             type="email"
             {...register("email", {
               required: true,
-              validate: {
-                matchPattern: (value) =>
-                  /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/gim.test(value) ||
-                  "Not a valid Email",
-              },
+              // validate: {
+              //   matchPattern: (value) =>
+              //     /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/gim.test(value) ||
+              //     "Not a valid Email",
+              // },
             })}
           />
           <Input
@@ -68,14 +67,13 @@ function Signup() {
             placeholder="Enter your password"
             {...register("password", {
               required: true,
-              // maxLength: 8,
-              // matchPattern: (value) =>
-              //   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(
-              //     value
-              //   ) ||
-              //   "should Contain 8 letters including capital letter and numbers",
-            })
-          }
+              maxLength: 8,
+              validate:{                
+                matchPattern: (value) =>
+                /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(value) ||
+                "should Contain 8 letters including capital letter and numbers",
+              }
+            })}
           />
           <p>{errors.password?.message}</p>
 

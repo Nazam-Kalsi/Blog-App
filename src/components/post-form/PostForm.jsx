@@ -9,18 +9,20 @@ import { Button, Input, RTE,Select } from "../index"; //basic components
 
 function PostForm({ post }) {
   const navigate = useNavigate();
-  const { register, handleSubmit, watch, setValue, control, getValues } =
+  const { register, handleSubmit, watch, setValue, control, getValues,formState } =
     useForm({
       defaultValues: {
-        title: post?.title || "",
+        Title: post?.Title || "",
         content: post?.content || "",
         slug: post?.slug || "",
-        status: post?.status || "",
+        status: post?.status || "active",
       },
     });
+    const {errors}=formState;
   const userData = useSelector((state) => state.authreducer.userinfo);
-
+console.log(userData);
   const submit = async (data) => {
+    console.log(data);
     //came to update
 
     if (post) {
@@ -36,11 +38,12 @@ function PostForm({ post }) {
         navigate(`/post/${update.$id}`);
       }
     } else {
-      if (post.image[0]) {
+      if (data.image[0]) {
         const file = await dbservice.uploadImg(data.image[0]);
         if (file) {
           let fileId = file.$id;
           data.featuredImage = fileId;
+          console.log(fileId);
           let newPost = await dbservice.createPost({
             ...data,
             userID: userData.$id,
@@ -68,8 +71,8 @@ function PostForm({ post }) {
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name === "title") {
-        setValue("slug", slugTransform(value.title));
+      if (name === "Title") {
+        setValue("slug", slugTransform(value.Title));
       }
     });
     return () => {
@@ -80,9 +83,9 @@ function PostForm({ post }) {
   return (
     <form onSubmit={handleSubmit(submit)}>
       <Input
-        lable="Title : "
+        label="Title : "
         placeholder="Enter Title..."
-        {...register("title", {
+        {...register("Title", {
           required: {
             value: true,
             message: "Please enter a title",
@@ -90,7 +93,7 @@ function PostForm({ post }) {
         })}
       />
       <Input
-        lable="Slug"
+        label="Slug"
         {...register("slug", {
           required: {
             value: true,
@@ -104,7 +107,7 @@ function PostForm({ post }) {
       <RTE
         label="Write your Context here..."
         control={control}
-        name="context"
+        name="Content"  
         defaultValue={getValues("content")}
       />
       <Input
@@ -120,7 +123,7 @@ function PostForm({ post }) {
       {post && (
         <img src={dbservice.preview(post.featuredImage)} alt={post.title} />
       )}
-      <Select
+      <Select      
         label="status"
         options={["active", "inactive"]}
         {...register("status", {
@@ -130,8 +133,12 @@ function PostForm({ post }) {
           },
         })}
       />
+      <p>{errors.status?.message}</p>
       <Button type="submit">{post ? "Update" : "Submit"}</Button>
+      {/* {serverError && <p className="text-red-200">{serverError}</p>} */}
     </form>
+
+
   );
 }
 
