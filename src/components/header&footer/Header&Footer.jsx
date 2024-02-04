@@ -8,7 +8,6 @@ export function Header() {
   const [userStatus, userInfo] = useSelector((state) => {
     return [state.authreducer.status, state.authreducer.userinfo];
   });
-  console.log(userInfo);
   const navigate = useNavigate(); //react-router-dom external feature -------- it takes url to which it has to navigate
   let NavBtn = [
     {
