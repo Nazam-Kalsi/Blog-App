@@ -6,7 +6,6 @@ function EditPost() {
     const [ post, setPost ] = useState(null)//we use null or empty array ' [] '
     const { slug }=useParams()
     const navigate=useNavigate()
-
     useEffect(()=>{
         if(slug){
             dbservice.getBlog(slug).then((data)=>{

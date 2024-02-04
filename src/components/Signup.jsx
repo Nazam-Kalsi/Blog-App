@@ -33,9 +33,8 @@ function Signup() {
   };
 
   return (
-    <div className="">
-      <div>logo</div>
-      <h2>Sign-Up</h2>
+    <div className="rounded-2xl my-28 px-4 py-12 w-2/5 m-auto bg-black/30">
+      <h2 className="text-center text-2xl font-bold">Sign-Up</h2>
 
       <form onSubmit={handleSubmit(registerUser)}>
         <div className="space-y-5">
@@ -80,12 +79,7 @@ function Signup() {
           <Button type="submit">Sign-Up</Button>
         </div>
       </form>
-      <p>
-        Already have a account
-        <Link className="" to="/Login">
-          Log-In
-        </Link>
-      </p>
+      <p className="mt-2">Already have a account  <Link className="text-blue-500" to="/Login">Log-In</Link></p>
       {serverError && <p className="text-red-200">{serverError}</p>}
     </div>
   );

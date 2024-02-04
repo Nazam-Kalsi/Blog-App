@@ -11,6 +11,7 @@ import Signup from './pages/Signup.jsx'
 import AllPost from './pages/AllPost.jsx'
 import AddPost from './pages/AddPost.jsx'
 import Post from './pages/Post.jsx'
+import EditPost from './pages/EditPost.jsx'
 const route=createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
@@ -20,6 +21,7 @@ const route=createBrowserRouter(
       <Route path='/allPosts' element={<AllPost/>} />
       <Route path='/addpost' element={<AddPost/>} />
       <Route path='/post/:slug' element={<Post/>}/>
+      <Route path='/edit-post/:slug' element={<EditPost/>}/>
 
     </Route>
   )

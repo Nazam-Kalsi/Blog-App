@@ -16,13 +16,12 @@ function PostForm({ post }) {
         content: post?.content || "",
         slug: post?.slug || "",
         status: post?.status || "active",
+        featuredImage: post?.featuredImage
       },
     });
     const {errors}=formState;
   const userData = useSelector((state) => state.authreducer.userinfo);
-console.log(userData);
   const submit = async (data) => {
-    console.log(data);
     //came to update
 
     if (post) {
@@ -113,6 +112,10 @@ console.log(userData);
       <Input
         type="file"
         label="Featured Image"
+        accept=".jpg,.jpeg,.png,.gif"
+        
+          //  value='post.featuredImage'
+        
         {...register("image", {
           required: {
             value: true,

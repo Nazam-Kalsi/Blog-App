@@ -17,15 +17,16 @@ function AllPost() {
 
   return (
     <>
-      <div>
-        <h1 className="mt-5 text-center">My Blogs</h1>
-        <Container>
+      <div className="m-4">
+        <h1 className="m-5 text-center font-bold text-2xl">My Blogs</h1>
+        <div className="flex basis-2/3 flex-wrap gap-8 justify-center">
+
           {post.map((individualPost) =>
             individualPost.userID == user.$id ? (
               <Card {...individualPost} key={individualPost.$id} />
-            ) : null
-          )}
-        </Container>
+              ) : null
+              )}
+              </div>
       </div>
 
 

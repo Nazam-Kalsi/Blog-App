@@ -17,7 +17,7 @@ function LogoutBtn() {
       console.log(error);
       });
   };
-  return <button onClick={logoutHandler}>Logout</button>;
+  return <button className="px-4 py-1 rounded-md hover:bg-red-600 font-bold hover:shadow-none   shadow-[1px_2px_0_rgba(14,24,12,0.8)]" onClick={logoutHandler}>Logout</button>;
 }
 
 export default LogoutBtn;

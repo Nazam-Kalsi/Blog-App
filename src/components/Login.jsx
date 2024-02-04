@@ -30,15 +30,14 @@ function Login() {
   };
 
   return (
-    <div className="">
-      <div>logo</div>
-      <h2>Log-In</h2>
+    <div className="px-4 py-12 rounded-2xl w-2/5  bg-black/30">
+      <h2 className="text-center text-2xl font-bold">Log in to your account</h2>
 
       <form onSubmit={handleSubmit(loginFxn)} className="">
         <div className="space-y-5">
           <Input
-            label="E-mail"
-            placeholder="Enter your E-mail"
+            label="Your email"
+            placeholder="name@company.com"
             type="email"
             {...register("email", {
               required: {
@@ -57,21 +56,22 @@ function Login() {
           />
           <p className="">{errors.email?.message}</p>
           <Input
+          className='mb-4'
             type="password"
             label="Password"
-            placeholder="Enter your password"
+            placeholder="********"
             {...register("password", {
               required: true,
             })}
           />
 
+
           <Button type="submit">Log in</Button>
+          
         </div>
       </form>
-      <p>
-        Don't have a account
-        <Link className="" to="/signUp">
-          Sign-Up
+      <p className="mt-2">
+      Don’t have an account yet?  <Link className=" text-blue-500" to="/signUp">Sign-Up
         </Link>
       </p>
       {error && <p className="text-red-200">{error}</p>}

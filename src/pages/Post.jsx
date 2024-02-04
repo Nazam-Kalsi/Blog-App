@@ -10,16 +10,16 @@ export default function Post() {
     const { slug } = useParams();
     const navigate = useNavigate();
 
-    const userData = useSelector((state) => state.authreducer.userData);
+    const userData = useSelector((state) => state.authreducer.userinfo);
 
-    const isAuthor = post && userData ? post.userId === userData.$id : false;
+ 
+    const isAuthor = post && userData ? post.userID === userData.$id : false;
 
     useEffect(() => {
         if (slug) {
             dbservice.getBlog(slug).then((post) => {
                 if (post) setPost(post);
                 else navigate("/");
-                console.log(post);
             });
         } else navigate("/");
     }, [slug, navigate]);
@@ -35,8 +35,7 @@ export default function Post() {
 
     return post ? (
         <div className="py-8">
-            <Container>
-                <div className="relative flex justify-center w-full p-2 mb-4 border rounded-xl">
+                <div className="flex justify-center w-full p-2 mb-4 pb-8 border-b">
                     <img
                         src={dbservice.preview(post.featuredImage)}
                         alt={post.title}
@@ -44,25 +43,24 @@ export default function Post() {
                     />
 
                     {isAuthor && (
-                        <div className="absolute right-6 top-6">
+                        <div className="absolute right-6 top-118 space-y-6">
                             <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3">
+                                <Button bgcolor="bg-green-500" className="mr-3">
                                     Edit
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost}>
+                            <Button bgcolor="bg-red-500" onClick={deletePost}>
                                 Delete
                             </Button>
                         </div>
                     )}
                 </div>
                 <div className="w-full mb-6">
-                    <h1 className="text-2xl font-bold">{post.Title}</h1>
+                    <h1 className="text-2xl text-center border-b pb-6 font-bold">{post.Title}</h1>
                 </div>
                 <div className="browser-css">
                     {parse(post.Content)}
                     </div>
-            </Container>
         </div>
     ) : null;
 }

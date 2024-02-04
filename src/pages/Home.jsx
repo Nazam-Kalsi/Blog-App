@@ -13,8 +13,10 @@ function Home() {
       })
   }, []);
   if (posts.length > 0) {
-    return (
-      <Container>
+    return (<>
+    
+      <p className="text-2xl font-bold text-center font-serif my-2 pb-2 border-b">BLOGS</p>
+      <div className="flex items-start flex-wrap gap-8  justify-center mb-2 basis-2/6">
         {posts.map((post) => {
           return (
             <div key={post.$id}>
@@ -22,7 +24,8 @@ function Home() {
             </div>
           );
         })}
-      </Container>
+      </div>
+      </>
     );
   } else {
     return <div>Sign-up or Log-in to see Blogs.</div>;
