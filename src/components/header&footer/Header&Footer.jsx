@@ -61,7 +61,7 @@ export function Header() {
             })}
             {userInfo?.name && <LogoutBtn />}
           </ul>
-          {userInfo.name &&  
+          {userInfo?.name &&  
           <div className="font-bold mr-8 flex items-center gap-1">
             <img className="size-9" src="./public/user.svg" alt="logo" />
             { userInfo?.name}            
