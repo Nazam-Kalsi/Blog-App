@@ -7,7 +7,7 @@ import store from './store/store.js'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
-import Signup from './pages/Signup.jsx'
+import SignUp from './pages/SignUp.jsx'
 import AllPost from './pages/AllPost.jsx'
 import AddPost from './pages/AddPost.jsx'
 import Post from './pages/Post.jsx'
@@ -17,7 +17,7 @@ const route=createBrowserRouter(
     <Route path='/' element={<App/>}>
       <Route path='' element={<Home/>}/>
       <Route path='/login' element={<Login/>} />
-      <Route path='/signup' element={<Signup/>}/>
+      <Route path='/signup' element={<SignUp/>}/>
       <Route path='/allPosts' element={<AllPost/>} />
       <Route path='/addpost' element={<AddPost/>} />
       <Route path='/post/:slug' element={<Post/>}/>
