@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LogoutBtn from "./LogoutBtn";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Container from "../container/Container";
 
 export function Header() {
   const [userStatus, userInfo] = useSelector((state) => {
@@ -23,12 +22,12 @@ export function Header() {
     {
       name: "Signup",
       slug: "/signup",
-      active: (userInfo.name) ? false : true,
+      active: (userInfo?.name) ? false : true,
     },
     {
       name: "My Posts",
       slug: "/allPosts",
-      active: (userInfo.name) ? true : false,
+      active: (userInfo?.name) ? true : false,
     },
     {
       name: "Add Post",
