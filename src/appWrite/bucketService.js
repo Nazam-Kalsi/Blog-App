@@ -31,15 +31,15 @@ export class dbServices {
     }
   }
 
-  async updateBlog(slug, { title, featuredImage, content, status }) {
+  async updateBlog(slug, { Title, featuredImage, Content, status }) {
     try {
       let updatedBlog = await this.databases.updateDocument(
         config.databaseID,
         config.collectionID,
         slug,
         {
-          title,
-          content,
+          Title,
+          Content,
           status,
           featuredImage,
         }

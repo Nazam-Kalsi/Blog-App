@@ -8,7 +8,6 @@ function Home() {
   useEffect(() => {
     authservice.guest(); 
       dbservice.allBlogs().then((data) => {
-        // console.log(data);
         setPosts(data.documents);
       })
   }, []);

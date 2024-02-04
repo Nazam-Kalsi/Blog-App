@@ -25,6 +25,7 @@ export default function Post() {
     }, [slug, navigate]);
 
     const deletePost = () => {
+        dbservice.deleteImg(post.$id)
         dbservice.deleteBlog(post.$id).then((status) => {
             if (status) {
                 dbservice.deleteImg(post.featuredImage);

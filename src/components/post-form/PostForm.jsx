@@ -3,7 +3,6 @@ import React, { useCallback, useEffect } from "react";
 import dbservice from "../../appWrite/bucketService"; //as we send data to appwrite
 import { useNavigate } from "react-router-dom"; //
 import { useSelector } from "react-redux"; //to validate from store
-
 import { useForm } from "react-hook-form"; //form
 import { Button, Input, RTE,Select } from "../index"; //basic components
 
@@ -13,8 +12,8 @@ function PostForm({ post }) {
     useForm({
       defaultValues: {
         Title: post?.Title || "",
-        content: post?.content || "",
-        slug: post?.slug || "",
+        content: post?.Content || "",
+        slug: post?.$id || "",
         status: post?.status || "active",
         featuredImage: post?.featuredImage
       },
@@ -42,7 +41,6 @@ function PostForm({ post }) {
         if (file) {
           let fileId = file.$id;
           data.featuredImage = fileId;
-          console.log(fileId);
           let newPost = await dbservice.createPost({
             ...data,
             userID: userData.$id,
@@ -80,9 +78,10 @@ function PostForm({ post }) {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(submit)} className="p-8">
       <Input
-        label="Title : "
+      className="mb-6"
+        label="Title"
         placeholder="Enter Title..."
         {...register("Title", {
           required: {
@@ -92,6 +91,8 @@ function PostForm({ post }) {
         })}
       />
       <Input
+            className="mb-6"
+
         label="Slug"
         {...register("slug", {
           required: {
@@ -104,12 +105,14 @@ function PostForm({ post }) {
         }}
       />
       <RTE
-        label="Write your Context here..."
+      className="mb-6"
+        label="Write your Context"
         control={control}
         name="Content"  
-        defaultValue={getValues("content")}
+        defaultValue={getValues("Content")}
       />
       <Input
+      className="mb-6"
         type="file"
         label="Featured Image"
         accept=".jpg,.jpeg,.png,.gif"
@@ -123,10 +126,12 @@ function PostForm({ post }) {
           },
         })}
       />
-      {post && (
+      <p>{errors?.image?.message}</p>
+      {/* {post && (
         <img src={dbservice.preview(post.featuredImage)} alt={post.title} />
-      )}
-      <Select      
+      )} */}
+      <Select    
+      className="p-2 rounded-md mb-4"  
         label="status"
         options={["active", "inactive"]}
         {...register("status", {
@@ -138,7 +143,7 @@ function PostForm({ post }) {
       />
       <p>{errors.status?.message}</p>
       <Button type="submit">{post ? "Update" : "Submit"}</Button>
-      {/* {serverError && <p className="text-red-200">{serverError}</p>} */}
+      {errors && <p className="text-red-200">{errors.content}</p>}
     </form>
 
 

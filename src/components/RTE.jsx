@@ -1,23 +1,27 @@
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
-function RTE({ name, control, label, defaultValue = "" }) {
+function RTE({ name, control, label, defaultValue = "",className="" }) {
   return (
-    <div>
-      {label && <label>{label}</label>}
+    <div className={`${className}`}>
+      {label && <label className="text-lg">{label}</label>}
       <Controller
         name={name || "default"}
         control={control}
         render={({ field: { onChange } }) => {return(
-          <Editor
-          
+          <Editor          
           apiKey="yb70s198wblbhmwkz3puo8k9hs34w1h9qfptna3rauybxfr0"
             initialValue={defaultValue}
 
             init={{
               // skin:'naked',
               content_css: 'tinymce-5-dark',
-
+              content_style:
+              `.mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
+              color: rgba(255, 255, 255, 1);
+              opacity: 1;
+              }
+              `,
               placeholder: "Type here...",
               branding: false,
               height: 500,

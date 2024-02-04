@@ -63,7 +63,7 @@ export function Header() {
           </ul>
           {userInfo?.name &&  
           <div className="font-bold mr-8 flex items-center gap-1">
-            <img className="size-9" src="./public/user.svg" alt="logo" />
+            <img className="size-9" src="./user.svg" alt="logo"/>
             { userInfo?.name}            
           </div>}
         </nav>
