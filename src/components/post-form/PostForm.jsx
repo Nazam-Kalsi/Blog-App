@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import dbservice from "../../appWrite/bucketService"; //as we send data to appwrite
 import { useNavigate } from "react-router-dom"; //
@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"; //form
 import { Button, Input, RTE,Select } from "../index"; //basic components
 
 function PostForm({ post }) {
+
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue, control, getValues,formState } =
     useForm({
@@ -18,13 +19,15 @@ function PostForm({ post }) {
         featuredImage: post?.featuredImage
       },
     });
+    let [modal,setModal]=useState('hidden');
     const {errors}=formState;
   const userData = useSelector((state) => state.authreducer.userinfo);
   const submit = async (data) => {
     //came to update
 
     if (post) {
-      let newImg = data.image[0] ? dbservice.uploadImg(data.image[0]) : null;
+      setModal('');
+      let newImg = data.image[0] ? await dbservice.uploadImg(data.image[0]) : null;
       if (newImg) {
         dbservice.deleteImg(post.featuredImage);
       }
@@ -36,6 +39,7 @@ function PostForm({ post }) {
         navigate(`/post/${update.$id}`);
       }
     } else {
+      setModal('');
       if (data.image[0]) {
         const file = await dbservice.uploadImg(data.image[0]);
         if (file) {
@@ -77,8 +81,16 @@ function PostForm({ post }) {
     };
   }, [watch, slugTransform, setValue]);
 
+  
   return (
+    <>
     <form onSubmit={handleSubmit(submit)} className="p-8">
+    <div id="modal" className={`absolute  overflow-hidden bg-blur bg-white/80 border border-black z-10 left-[35%] -bottom-[16rem]  w-96  rounded-md  ${modal} `}>
+      <div className=" text-end pr-2 border-b bg-white border-black text-black">ooo</div>
+  <p className='text-black text-2xl font-serif font-bold text-center h-56 py-20'>Processing...</p>
+  <div className="pb-8 bg-white  border-t border-black"></div>
+
+</div> 
       <Input
       className="mb-6"
         label="Title"
@@ -144,8 +156,9 @@ function PostForm({ post }) {
       <p>{errors.status?.message}</p>
       <Button type="submit">{post ? "Update" : "Submit"}</Button>
       {errors && <p className="text-red-200">{errors.content}</p>}
+   
     </form>
-
+    </>
 
   );
 }

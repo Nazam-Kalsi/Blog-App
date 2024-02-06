@@ -59,7 +59,7 @@ export default function Post() {
                 <div className="w-full mb-6">
                     <h1 className="text-2xl text-center border-b pb-6 font-bold">{post.Title}</h1>
                 </div>
-                <div className="browser-css">
+                <div className="w-5/6 mx-auto">
                     {parse(post.Content)}
                     </div>
         </div>
