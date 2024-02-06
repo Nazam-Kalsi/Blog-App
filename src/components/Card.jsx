@@ -8,9 +8,9 @@ function Card({
   return (
 
     <Link to={`/post/${$id}`}>
-      <div className='py-4 px-28 border border-gray-500 rounded-xl hover:bg-black hover:scale-[1.01] transition-all'>
-        <div className=' overflow-hidden rounded-md bh-64 '>
-          <img src={dbService.preview(featuredImage)} alt={Title} className='rounded-xl size-40 '/> 
+      <div className='py-4 px-8 min-w-80 border border-gray-500 rounded-xl hover:bg-black hover:scale-[1.01] transition-all'>
+        <div className=' overflow-hidden bh-64 w-5/6 '>
+          <img src={dbService.preview(featuredImage)} alt={Title} className='w-5/6  rounded-xl size-40 '/> 
            {/*we store id of image in db */}
         </div>
         <div className='flex-1'>

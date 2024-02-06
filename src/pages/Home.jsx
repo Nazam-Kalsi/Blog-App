@@ -11,6 +11,8 @@ function Home() {
         setPosts(data.documents);
       })
   }, []);
+  console.log(posts);
+
   if (posts.length > 0) {
     return (<>
     
