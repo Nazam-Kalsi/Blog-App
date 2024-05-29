@@ -30,7 +30,7 @@ function Login() {
   };
 
   return (
-    <div className="px-4 py-12 rounded-2xl w-2/5  bg-black/30">
+    <div className="px-4 py-12 rounded-2xl sm:w-2/5  bg-black/30">
       <h2 className="text-center text-2xl font-bold">Log in to your account</h2>
 
       <form onSubmit={handleSubmit(loginFxn)} className="">

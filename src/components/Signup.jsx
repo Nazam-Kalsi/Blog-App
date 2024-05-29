@@ -17,10 +17,10 @@ function Signup() {
 
   let registerUser = async (data) => {
     setServerError("");
-
     try {
       let userData = await authservice.createAccount(data);
       if (userData) {
+        console.log(userData);
         let user = await authservice.currentUser();
         if (user) {
           dispatch(storeLogin(user));
@@ -33,7 +33,7 @@ function Signup() {
   };
 
   return (
-    <div className="rounded-2xl my-28 px-4 py-12 w-2/5 m-auto bg-black/30">
+    <div className="rounded-2xl my-28 px-4 py-12 sm:w-2/5 m-auto bg-black/30">
       <h2 className="text-center text-2xl font-bold">Sign-Up</h2>
 
       <form onSubmit={handleSubmit(registerUser)}>
@@ -53,11 +53,11 @@ function Signup() {
             type="email"
             {...register("email", {
               required: true,
-              // validate: {
-              //   matchPattern: (value) =>
-              //     /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/gim.test(value) ||
-              //     "Not a valid Email",
-              // },
+              validate: {
+                matchPattern: (value) =>
+                  /^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/gim.test(value) ||
+                  "Not a valid Email",
+              },
             })}
           />
           <Input
@@ -66,7 +66,6 @@ function Signup() {
             placeholder="Enter your password"
             {...register("password", {
               required: true,
-              maxLength: 8,
               validate:{                
                 matchPattern: (value) =>
                 /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(value) ||
@@ -75,7 +74,6 @@ function Signup() {
             })}
           />
           <p>{errors.password?.message}</p>
-
           <Button type="submit">Sign-Up</Button>
         </div>
       </form>

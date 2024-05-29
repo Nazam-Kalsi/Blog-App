@@ -1,5 +1,5 @@
 import config from "../ConfigEnv/Config";
-import { Client, ID, Databases, Storage, Query } from "appwrite";
+import { Client, ID, Databases, Storage, Query,Permission,Role } from "appwrite";
 
 export class dbServices {
   client = new Client();
@@ -23,11 +23,13 @@ export class dbServices {
           status,
           userID,
           featuredImage,
-        }
+        },[
+          Permission.read(Role.any())      
+        ]
       );
       return post;
     } catch (error) {
-        throw new Error("could not create the blog");
+        throw new Error("could not create the blog"+error.message);
     }
   }
 
@@ -46,7 +48,7 @@ export class dbServices {
       );
       return updatedBlog;
     } catch (error) {
-      throw new Error("could not update the blog");
+      throw new Error("could not update the blog"+error.message);
     }
   }
 
@@ -67,8 +69,8 @@ export class dbServices {
         let singleBlog =await this.databases.getDocument(config.databaseID,config.collectionID,slug);
         return singleBlog;
     }
-    catch{
-        throw new Error("Could not parse the blog");
+    catch(error){
+        throw new Error("Could not parse the blog",error.message);
     }
   }
 
@@ -76,11 +78,11 @@ export class dbServices {
   async allBlogs(){
   try{
         let allBlogs=await this.databases.listDocuments(config.databaseID,config.collectionID)
-        // console.log(allBlogs);
+        console.log(allBlogs);
         return allBlogs;
     }
-    catch{
-        throw new Error("could not get all blogs.Try again!")
+    catch(error){
+        throw new Error("could not get all blogs.Try again!"+error.message)
     }
   }
 

@@ -4,9 +4,7 @@ import authservice from "../appWrite/auth";
 import { Card, Container } from "../components";
 function Home() {
   const [posts, setPosts] = useState([]);
-  useEffect(() => {
-  
-    authservice.guest(); 
+  useEffect(() => {  
       dbservice.allBlogs().then((data) => {
         setPosts(data.documents);
       })
@@ -28,7 +26,7 @@ function Home() {
       </>
     );
   } else {
-    return <div></div>
+    return <div className="text-center text-2xl my-2">Login or sign-up to see the blogs</div>
   }
 }
 export default Home;

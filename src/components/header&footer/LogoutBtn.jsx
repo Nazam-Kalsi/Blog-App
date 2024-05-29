@@ -11,7 +11,7 @@ function LogoutBtn() {
       .logOut()
       .then(() => {
         dispatch(logOut());
-        navigate(' ')
+        navigate('/')
       })
       .catch((error) => {
       console.log(error);

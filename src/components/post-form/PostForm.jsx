@@ -84,7 +84,7 @@ function PostForm({ post }) {
   
   return (
     <>
-    <form onSubmit={handleSubmit(submit)} className="p-8">
+    <form onSubmit={handleSubmit(submit)} className="p-8 w-full">
     <div id="modal" className={`absolute  overflow-hidden bg-blur bg-white/80 border border-black z-10 left-[35%] -bottom-[16rem]  w-96  rounded-md  ${modal} `}>
       <div className=" text-end pr-2 border-b bg-white border-black text-black">ooo</div>
   <p className='text-black text-2xl font-serif font-bold text-center h-56 py-20'>Processing...</p>

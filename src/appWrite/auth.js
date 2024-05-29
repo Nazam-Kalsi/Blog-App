@@ -8,6 +8,7 @@ export class authService {
     this.client.setEndpoint(config.appWriteID).setProject(config.projectID);
     this.account = new Account(this.client);
   }
+  
   async createAccount({ email, password, name }) {
     try {
       let accountCreation = await this.account.create(
@@ -19,12 +20,12 @@ export class authService {
       if (accountCreation) {
         console.log("userAccount : ", accountCreation);
         // calllogin
-        return this.login(email, password);
+        return this.login({email, password});
       } else {
         return accountCreation;
       }
     } catch (error) {
-      throw error;
+      throw new Error("Failed to create user : " + error.message);
     }
   }
 
@@ -33,19 +34,19 @@ export class authService {
       let user = await this.account.createEmailSession(email, password);
       return user;
     } catch (error) {
-      throw error;
+      throw new Error("Failed to login user : " + error.message);
     }
   }
-
 
   async currentUser(){
     try {
         const currentUser=await this.account.get();
         return currentUser; 
     } catch (error) {
-      throw new Error(error);
+      throw new Error("Failed to fetch current user: " + error.message);
     }
   }
+  
   async logOut(){
     try {
        return await this.account.deleteSession('current');
@@ -53,16 +54,18 @@ export class authService {
         throw error;
     }
   }
-  async guest(){    
-    try {
-      let  isGuest = await this.account.createAnonymousSession();
-      console.log("is Guest : ",isGuest);
-      return isGuest;
+
+  //this function is not in use.
+  // async guest(){    
+  //   try {
+  //     let  isGuest = await this.account.createAnonymousSession();
+  //     console.log("is Guest : ",isGuest);
+  //     return isGuest;
       
-    } catch (error) {
-      throw new Error(error);
+  //   } catch (error) {
+  //     throw new Error(error);
       
-    }}
+  //   }}
   }
 const authservice = new authService();
 export default authservice;
