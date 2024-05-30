@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import authservice from "../appWrite/auth";
 
 function Login() {
+  let [modal,setModal]=useState('hidden');
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit ,formState} = useForm();
@@ -16,20 +18,26 @@ function Login() {
 
   const loginFxn = async (data) => {
     setError("");
+    setModal('');
     try {
       let session = await authservice.login(data);
       if (session) {
         let user = await authservice.currentUser();
-        console.log(user);
         if (user) dispatch(storeLogin(user));
         navigate("/");
       }
     } catch (error) {
       setError(error.message);
+      setModal('hidden');
     }
   };
 
-  return (
+  return (<>
+      <div id="modal" className={`absolute  overflow-hidden bg-blur bg-white/80 border border-black z-10 left-[35%] top-[20%]  w-96  rounded-md  ${modal} `}>
+      <div className=" text-end pr-2 border-b bg-white border-black text-black">ooo</div>
+  <p className='text-black text-2xl font-serif font-bold text-center h-56 py-20'>Processing...</p>
+  <div className="pb-8 bg-white  border-t border-black"></div>
+</div> 
     <div className="px-4 py-12 rounded-2xl sm:w-2/5  bg-black/30">
       <h2 className="text-center text-2xl font-bold">Log in to your account</h2>
 
@@ -63,7 +71,7 @@ function Login() {
             {...register("password", {
               required: true,
             })}
-          />
+            />
 
 
           <Button type="submit">Log in</Button>
@@ -76,6 +84,7 @@ function Login() {
       </p>
       {error && <p className="text-red-200">{error}</p>}
     </div>
+            </>
   );
 }
 

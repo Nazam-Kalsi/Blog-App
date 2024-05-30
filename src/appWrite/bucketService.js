@@ -24,8 +24,9 @@ export class dbServices {
           userID,
           featuredImage,
         },[
-          Permission.read(Role.any())      
-        ]
+          Permission.read(Role.users())
+          // Permission.read(Role.guests())
+      ]
       );
       return post;
     } catch (error) {

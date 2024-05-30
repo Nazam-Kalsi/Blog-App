@@ -8,6 +8,7 @@ import { login as storeLogin } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 
 function Signup() {
+  const [modal, setModal] = useState("");
   //register user
   const navigate = useNavigate();
   const [serverError, setServerError] = useState("");
@@ -16,6 +17,7 @@ function Signup() {
   let { errors } = formState;
 
   let registerUser = async (data) => {
+    setModal("");
     setServerError("");
     try {
       let userData = await authservice.createAccount(data);
@@ -28,11 +30,17 @@ function Signup() {
         }
       }
     } catch (error) {
+      setModal("hidden");
       setServerError(error.message);
     }
   };
 
-  return (
+  return (<>
+    <div id="modal" className={`absolute  overflow-hidden bg-blur bg-white/80 border border-black z-10 left-[35%] top-[20%]  w-96  rounded-md  ${modal} `}>
+      <div className=" text-end pr-2 border-b bg-white border-black text-black">ooo</div>
+  <p className='text-black text-2xl font-serif font-bold text-center h-56 py-20'>Processing...</p>
+  <div className="pb-8 bg-white  border-t border-black"></div>
+</div> 
     <div className="rounded-2xl my-28 px-4 py-12 sm:w-2/5 m-auto bg-black/30">
       <h2 className="text-center text-2xl font-bold">Sign-Up</h2>
 
@@ -66,7 +74,7 @@ function Signup() {
             placeholder="Enter your password"
             {...register("password", {
               required: true,
-              validate:{                
+              validate:{          
                 matchPattern: (value) =>
                 /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(value) ||
                 "should Contain 8 letters including capital letter and numbers",
@@ -80,6 +88,7 @@ function Signup() {
       <p className="mt-2">Already have a account  <Link className="text-blue-500" to="/Login">Log-In</Link></p>
       {serverError && <p className="text-red-200">{serverError}</p>}
     </div>
+  </>
   );
 }
 
