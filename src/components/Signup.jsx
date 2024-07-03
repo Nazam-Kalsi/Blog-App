@@ -8,7 +8,7 @@ import { login as storeLogin } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 
 function Signup() {
-  const [modal, setModal] = useState("");
+  const [modal, setModal] = useState("hidden");
   //register user
   const navigate = useNavigate();
   const [serverError, setServerError] = useState("");
